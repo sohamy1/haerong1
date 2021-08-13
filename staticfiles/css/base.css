@@ -1,0 +1,52 @@
+body {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: coral;
+}
+
+.highligt_link {
+    color: darkgoldenrod;
+}
+
+.title {
+    height: 60px;
+    border: 1px solid black;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.nav_bar {
+    text-align: left;
+    margin-top : 10px;
+    border: 1px solid black;
+    padding-left : 50px;
+    height : 44px;
+}
+
+.nav_bar button {
+    border: 1px solid black;
+    float: left;
+    margin-right: 5px;
+}
+
+
+.account_box {
+    width:250px;
+    display: inline;
+    border: 1px solid black;
+    float: right; 
+    margin-right: 5%;
+}
+
+.account_form {
+    text-align: left;
+}

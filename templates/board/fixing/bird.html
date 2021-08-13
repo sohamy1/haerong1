@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<!--인기글은 추천수로, 나머지는 최근글로-->
+{% block content %}
+
+<!--한 줄에 5개씩 출력-->
+    <h2>조류</h2>
+    <table width="70%" height="100px" align="center" border="1" >
+        <tr>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        </tr>
+    </table>
+
+{% endblock %}

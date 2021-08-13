@@ -1,0 +1,150 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <title>해롱이 - 애완동물 커뮤니티</title>
+    <link rel="shortcut icon" href="{% static 'img/home/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'img/home/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+</head>
+<body class="bg-gradient-primary">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top">
+
+                    <!-- Topbar Search -->
+                        <div class="input-group-append">
+                            <a href="{%url 'home' %}" style="color: grey; font-size:x-large;">
+                                <img width="50px" class="mr-2 ml-3" src="{% static 'css/logo1.gif' %}"> Haerong
+                            </a>
+                        </div>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <!-- 로그인 되어있을 때-->
+                        {% if user.is_authenticated %}
+                        <!-- 글쓰기 -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="{%url 'board:write' %}"
+                                role="button" style="color:grey; text-decoration:none;">
+                                글쓰기
+                            </a>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- 프로필 사진 -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="img-profile rounded-circle rounded-lg"
+                                        src="/media/{{ user.image }}">
+                            </a>
+
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-left shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{%url 'account:myaccount' %}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+
+                                <!-- 로그아웃 -->
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{%url 'account:logout' %}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                        {% endif %}
+
+                        <!-- 로그인이 안 되어있을 때 -->
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="{%url 'account:login' %}"
+                                role="button" style="color:grey; text-decoration:none;">
+                                로그인
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- 검색창 -->
+                    <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img width="40px"
+                                    src="{% static 'img/home/search_button.gif' %}">
+                            </a>
+                        
+
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <form action="{%url 'board:search'%}" method="get"
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <select class="search" style="width:80px;">
+                                    <option value="title" selected>제목</option>
+                                </select>
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                    name="search_key"aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append mx-xl-3">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </li>
+                    </ul>
+
+                </nav>
+
+                <!-- End of Topbar -->
+
+        
+
+
+    {% block content %}
+    {% endblock %}
+
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <script type="text/javascript">
+                alert("{{ message.message }}");
+            </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>

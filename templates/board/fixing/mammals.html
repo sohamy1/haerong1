@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+<!--페이지네이터 쓰실 거면 말씀해주세요 수정해서 드리겠습니다. 일단 틀만 보냅니다.-->
+{% block content %}
+
+<!--한 줄에 5개씩 출력-->
+    <h2>포유류</h2>
+    <table width="70%" height="100px" align="center" border="1" >
+        <tr>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        <td>
+            <a href="{%url 'board:detail' post.id %}"><img scr="" align="bottom">
+                {{ post.title }}</a>
+        </td>
+        </tr>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    input:focus{outline:none;}
+</style>
+    <div class="container">
+        <!--글작성 폼-->
+        <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <script>
+                var board_name="{{post.category}}";
+                document.write("<select name=\"category\">");
+                if board_name=="포유류"
+                    document.write("<option value=\"포유류\" selected> 포유류 </option>");
+                else
+                    document.write("<option value=\"포유류\"> 포유류 </option>");
+                if board_name=="양서류"
+                    document.write("<option value=\"양서류\"> 양서류 </option>");
+                else
+                    document.write("<option value=\"양서류\"> 양서류 </option>");
+                if board_name=="파충류"
+                    document.write("<option value=\"파충류\"> 파충류 </option>");
+                else
+                    document.write("<option value=\"파충류\"> 파충류 </option>");
+                if board_name=="조류"
+                    document.write("<option value=\"조류\"> 조류 </option>");
+                else
+                    document.write("<option value=\"조류\"> 조류 </option>");
+                if board_name=="어류"
+                    document.write("<option value=\"어류\"> 어류 </option>");
+                else
+                    document.write("<option value=\"어류\"> 어류 </option>");
+                if board_name=="기타"
+                    document.write("<option value=\"기타\"> 기타 </option></select><br>");
+                else
+                    document.write("<option value=\"기타\"> 기타 </option>");
+            </script>
+            <input type="text" name="title" class="texttitle"placeholder="제목을 입력해주세요">
+            <hr color="#FF8E06">
+            <input type="text" value="{{ user.nickname }}" name="writer" readonly hidden> 
+            <textarea name="body" cols=50 rows=30 value="{{ post.body }}"></textarea><br>
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+             <input type="file" name="image" value="{{ user.image }}" multiple class="d-none d-sm-inline-block btn">
+            <input type="submit" value="글작성" class="d-none d-sm-inline-block btn btn-primary">
+            </div>
+            </form>
+    </div>
+{% endblock %}

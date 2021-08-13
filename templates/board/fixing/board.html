@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+<!--인기글은 추천수로, 나머지는 최근글로-->
+{% block content %}
+<!--카테고리-->
+    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-outline-dark btn-sm px-3 ml-4 mr-4" href="{%url 'board:board_all' %}">전체글</a>
+        <a class="btn btn-outline-dark btn-sm px-3 ml-4 mr-4" href="{%url 'board:board_hot' %}">인기글</a>
+        <a class="btn btn-outline-dark btn-sm px-3 ml-4 mr-4" href="{%url 'board:board_mammals' %}">포유류</a>
+        <a class="btn btn-outline-dark btn-sm px-3 ml-4 mr-4" href="{%url 'board:board_amphibian' %}">양서류</a>
+        <a class="btn btn-outline-dark btn-sm px-3 ml-4 mr-4" href="{%url 'board:board_reptilia' %}">파충류</a>
+        <a class="btn btn-outline-dark btn-sm px-4 ml-4 mr-4" href="{%url 'board:board_bird' %}">조류</a>
+        <a class="btn btn-outline-dark btn-sm px-4 ml-4 mr-4" href="{%url 'board:board_fish' %}">어류</a>
+        <a class="btn btn-outline-dark btn-sm px-4 ml-4 mr-4" href="{%url 'board:board_etc' %}">기타</a>
+    </div>
+
+
+<!--한 줄에 5개씩 출력-->
+<div class="container mt-5">
+    <div class="mb-5 mt-5">
+    <h2>{{ board_name }}</h2>
+            <a href="?filter_new=true" class="d-none d-sm-inline-block btn btn-primary"> 최신순 </a>
+        <a href="?filter_past=true" class="d-none d-sm-inline-block btn btn-primary"> 과거순 </a>
+        <a href="?filter_stars=true" class="d-none d-sm-inline-block btn btn-primary"> 인기순 </a></div>
+    <table width="100%" align="center" style="color: black">
+    <thead align="center" style="border-bottom: 2px double orange;">
+        <tr>
+        <th> 번호 </th>
+        <th> 제목 </th>
+        <th> 닉네임 </th>
+        <th> 조회 </th>
+        <th> 추천수 </th></tr>
+    </thead>
+        {% for post in posts %}
+            <tr align="center">
+                <td width="10%">
+                    {{ post.id }}
+                </td>
+                <td width="55%" align="left">
+                    <a href="{%url 'board:detail' post.id %}" style="color: black">{{ post.title }}</a>
+                </td>
+                <td width="15%">
+                    {{ post.writer }}
+                </td>
+                <td width="10%">
+                    {{ post.views }}
+                </td>
+                <td width="10%">
+                    {{ post.stars }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% comment %} <div class="container justify-content-center">
+        {% if posts.has_previous %}    
+            <!-- 제일 첫 page -->
+            <a href="?page=1" class="btn btn-outline-dark btn-sm ml-1 mr-1">1</a>
+            <!-- 바로 이전 page -->
+            <a href="?page={{posts.previous_page_number}}" class="btn btn-outline-dark btn-sm  ml-1 mr-1">Previous</a>
+        {% endif %}
+            <!-- 현재 page -->
+            <span>{{posts.number}}<span>
+            <!-- 현재 page보다 더 이후의 page가 존재한다면 -->
+        {% if posts.has_next %}
+            <!-- 바로 다음 page -->
+            <a href="?page={{posts.next_page_number}} class="btn btn-outline-dark btn-sm  ml-1 mr-1">Next</a>
+            <!-- 마지막 page -->
+            <a href="?page={{posts.paginator.num_pages}}" class="btn btn-outline-dark btn-sm ml-1 mr-1">{{posts.paginator.num_pages}}</a>
+        {% endif %}
+    </div> {% endcomment %}
+
+</div>
+
+{% endblock %}

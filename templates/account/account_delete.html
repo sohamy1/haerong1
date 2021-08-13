@@ -1,0 +1,18 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h2 class="center">내 계정 삭제</h2>
+    <form action="{%url 'account:account_delete' %}" method="POST">
+        {% csrf_token %}
+        {{ user.nickname }}의 계정을 삭제합니다 <br>
+        비밀번호를 입력해주세요 <br>
+        <input type="text" value="{{ user.nickname }}" name="nickname" hidden readonly>
+        <input type="password" name="password"  class="form-control form-control-user"> <br>
+        <button type="submit" class="d-none d-sm-inline-block btn btn-primary">삭제완료</button> <hr>
+        <a href="{%url 'account:myaccount' %}" class="d-none d-sm-inline-block btn btn-primary">뒤로가기</a>
+    </form>
+    </div>
+
+{% endblock %}

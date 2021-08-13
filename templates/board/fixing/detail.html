@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container mb-4">
+        <script>
+            var board_name="{{ post.category }}";
+            if (board_name=="포유류")
+                document.write("<a href = {%url 'board:board_mammals' %}>포유류</a>");
+            if (board_name=="양서류")
+                document.write("<a href = {%url 'board:board_amphibian' %}>양서류</a>");
+            if (board_name=="파충류")
+                document.write("<a href = {%url 'board:board_reptilia' %}>파충류</a>");
+            if (board_name=="조류")
+                document.write("<a href = {%url 'board:board_bird' %}>조류</a>");
+            if (board_name=="어류")
+                document.write("<a href = {%url 'board:board_fish' %}>어류</a>");
+            if (board_name=="기타")
+                document.write("<a href = {%url 'board:board_etc' %}>기타</a>");
+        </script>
+            <h2>{{post.title}}</h2>
+                <div>
+                    <a href="{%url 'account:account_info' post.writer %}">{{ post.writer }}</a>  | 
+                    {{ post.created_at }}
+                    
+                    <p align="right">조회수 | {{ post.views }}</p>
+                </div>
+                <hr color="#FF8E06">
+                <div align=right>
+                    <a href="{%url 'board:delete' post.id %}" style="color:grey">삭제하기</a> | 
+                    <a href="{%url 'board:edit' post.id %}" style="color:grey">수정하기</a>
+                </div>
+                <div class="detail_body mb-5">
+                    <img src="/media/{{ post.image }}" alt=""><br>
+                    {{ post.body }}
+                </div>
+                <div class="mb-4 mt-3" align="center">
+                    추천수 : {{ post.stars }} <a href="{%url 'board:stars' post.id %}"><button  class="d-none d-sm-inline-block btn btn-primary">추천하기</button></a> <br>
+                    <!--만약 본인 게시물이면 추가하기-->
+                </div>
+                <hr color="#FF8E06">
+                <div align="center">
+                    <a href="{%url 'board:detail_next' post.id %}"><button  class="d-none d-sm-inline-block btn btn-primary">이전글</button></a>
+                            <script>
+                                var board_name="{{ post.category }}";
+                                if (board_name=="포유류")
+                                    document.write("<a href=\"{%url 'board:board_mammals' %}\"><button  class=\"d-none d-sm-inline-block btn btn-primary\">목록</button></a>");
+                                if (board_name=="양서류")
+                                    document.write("<a href=\"{%url 'board:board_amphibian' %}\"><button  class=\"d-none d-sm-inline-block btn btn-primary\">목록</button></a>");
+                                if (board_name=="파충류")
+                                    document.write("<a href=\"{%url 'board:board_reptilia' %}\"><button  class=\"d-none d-sm-inline-block btn btn-primary\">목록</button></a>");
+                                if (board_name=="조류")
+                                    document.write("<a href=\"{%url 'board:board_bird' %}\"><button  class=\"d-none d-sm-inline-block btn btn-primary\">목록</button></a>");
+                                if (board_name=="어류")
+                                    document.write("<a href=\"{%url 'board:board_fish' %}\"><button  class=\"d-none d-sm-inline-block btn btn-primary\">목록</button></a>");
+                                if (board_name=="기타")
+                                    document.write("<a href=\"{%url 'board:board_etc' %}\"><button  class=\"d-none d-sm-inline-block btn btn-primary\">목록</button></a>");}
+                                else
+                                    document.write("<button  class=\"d-none d-sm-inline-block btn btn-primary\" onclick=\"history.back()\">목록</button>");
+                            </script>
+                    <a href="{%url 'board:detail_back' post.id %}"><button  class="d-none d-sm-inline-block btn btn-primary">다음글</button></a>
+                    
+                </div>
+            <!-- 다음 페이지, 이전 페이지, 목록 기능이 있었으면 좋겠습니다 (완전까먹고 있었네 추가할게요 - 해인)-->
+
+                <hr color="#FF8E06">
+            댓글 {{post.comments_count}}개 <br>
+            {% for comment in comments %}
+            <div class="bg-light container mt-3 mb-3">
+            <b><a href="{%url 'account:account_info' comment.writer %}">{{comment.writer}}</a></b> | {{comment.created_at}}
+            <div style="float: right">
+                <a href="{%url 'comment:comment_like' comment.id %}">추천하기</a> | 
+                <a href="{%url 'comment:comment_del' comment.id %}">삭제하기</a>
+            </div>
+             <br> <br>{{comment.body}}</div>               
+            {% endfor %}
+            <form action="{%url 'comment:comment' post.id %}">
+                {% csrf_token %}
+                <input type="text" value="{{ user.nickname }}" name="user" readonly hidden>
+                <textarea name="comment" rows="3" style="width:100%"></textarea><br>
+                <div align="right">
+                <input type="submit" class="btn btn-primary" value="입력">
+                </div>
+            </form>
+            <br>
+        </div>
+
+{% endblock %}

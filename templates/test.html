@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+{% load static %}
+<!--인기글은 추천수로, 나머지는 최근글로-->
+{% block content %}
+    <header class="bg-category-image" style="margin-bottom: 60px;">
+        <div class="container px-54">
+            <div class="row justify-content-center">
+                <div class="col-lg-auto">
+                    <div class="text-center my-5">
+                        <h1 class="text-white mb-2">카테고리</h1>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center" style="margin-top: 160px; margin-bottom: 70px">
+                            <a class="btn btn-outline-light btn-lg px-3 ml-3 mr-3" href="{%url 'board:board_mammals' %}">포유류</a>
+                            <a class="btn btn-outline-light btn-lg px-3 ml-3 mr-3" href="{%url 'board:board_amphibian' %}">양서류</a>
+                            <a class="btn btn-outline-light btn-lg px-3 ml-3 mr-3" href="{%url 'board:board_reptilia' %}">파충류</a>
+                            <a class="btn btn-outline-light btn-lg px-4 ml-3 mr-3" href="{%url 'board:board_bird' %}">조류</a>
+                            <a class="btn btn-outline-light btn-lg px-4 ml-3 mr-3" href="{%url 'board:board_fish' %}">어류</a>
+                            <a class="btn btn-outline-light btn-lg px-4 ml-3 mr-3" href="{%url 'board:board_etc' %}">기타</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+        <div class="left" style="float:left; margin-left: 10%;">
+            <h4>Hot bard</h4>
+            <!-- 인기 좋은 글 12개를 3개씩 한 줄로 출력하게 해야함 (이미지 보이게) (왼쪽) -->
+            {% for post in hot_posts %}
+                <div style="margin: 10px; display: inline-block; width: 300px; text-align: center;">
+
+                    <div class="card" style="width: 18rem;">
+                        {% if post.image is not False %}
+                            <img class="card-img-top" src="/media/{{ post.image }}" width="100px" height="200px">
+                        {% endif %}
+                        {% if post.image is False %}
+                            <img class="card-img-top" src="{% static 'img/home/basic_img.gif' %}" width="100px" height="200px">
+                        {% endif %}
+                        <div class="card-body">
+                          <h5 class="card-title">{{ post.title }}</h5>
+                          <p class="card-text">좋아요 : {{ post.stars }} 댓글 {{ post.comments_count }}</p>
+                          <a href="{%url 'board:detail' post.id %}" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
+                </div>
+                {% ifequal forloop.counter|divisibleby:"3" True %} <!-- 3번째 줄일때 마다 <br> -->
+                    <br>
+                {% endifequal %}
+            {% endfor %}
+        
+        </div>
+        <div class="right" style="float:right; margin-right: 3%;">
+            <div class="member bg-light">
+                <h5>회원 순위</h5><br>
+                <!-- 경험치 높은 멤버 순으로 출력하게 해야한다(상위 10명) -->
+                {% for member in top_users %}
+                    <a href="{%url 'account:account_info' member.nickname %}">{{ member.nickname }}   </a> 
+                    {{ member.rank }}    
+                    {{ member.score }}    
+                <hr>
+                {% endfor %}
+            </div>
+            <div class="new bg-light mt-2">
+                <h5>최신글</h5><br>
+                <!-- 전체 최신글을 출력해야함 (10개) -->
+                {% for post in new_posts %}
+                    <a href="{% url 'board:detail' post.id %}">{{ post.title }} </a>   
+                    {{ post.created_at }}    
+                <hr>
+                {% endfor %}
+                
+            </div>
+        </div>
+{% endblock %}

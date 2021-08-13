@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>계정 정보</h2>
+
+    {% if target %}
+
+        <h4 style="display: inline-block;">{{ target.nickname }}</h4>
+        {% if target.rank == "브론즈" %}
+                <img src="{% static 'img/home/1.gif' %}" width="25px" height="25px">
+            {% endif %}
+            {% if target.rank == "실버" %}
+                <img src="{% static 'img/home/2.gif' %}" width="25px" height="25px">
+            {% endif %}
+            {% if target.rank == "골드" %}
+                <img src="{% static 'img/home/3.gif' %}" width="25px" height="25px">
+        {% endif %} <br>
+        <img src="/media/{{ target.image }}" width="120px" height="120px"> 
+        {% if target.image is False %}
+            <img src="{% static 'img/home/profile.gif' %}" width="120px" height="120px">
+        {% endif %} <br>
+        점수 : {{ target.score }}xp |
+        랭크 : {{ target.rank }} 
+        
+        <hr>
+        <h5>{{ target.nickname }}님이 쓰신 글 입니다.</h5>
+        {% for post in posts %}
+            <a href="{%url 'board:detail' post.id %}">{{ post.title }}</a> <br>
+        {% endfor %}
+
+        <hr color="#FF8E06">
+        <h5>{{ target.nickname }}님이 쓰신 댓글 입니다.</h5>
+        {% for comment in comments %}
+            <a href="{%url 'board:detail' comment.linked_post %}">{{ comment.body }}</a> <br>
+        {% endfor %}
+
+    {% endif %}
+
+    {% if error is True %}
+        해당 유저를 찾을 수 없습니다.
+    {% endif %}
+    
+    <hr>
+</div>
+{% endblock %}

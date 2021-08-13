@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form method="POST" action="{%url 'account:register' %}" class="user" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <!--프로필 사진 입력(가능하면 수정)-->
+
+
+
+                            <!--이메일 입력-->
+                                <div class="form-group">
+                                        <input type="text" class="form-control form-control-user"
+                                            name="email" placeholder="email">
+                                </div>
+                            <!--비밀번호, 비밀번호 확인-->
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user"
+                                            name="password1" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="exampleInputPassword" name="password2" placeholder="Repeat Password">
+                                    </div>
+                                </div>
+                            <!--닉네임 입력-->
+                                <div class="form-group">
+                                        <input type="text" class="form-control form-control-user"
+                                            name="nickname" placeholder="nickname">
+                                </div>
+                            <!--프로필 사진-->
+                                <div class="form-group">
+                                        profile photo<input type="file"
+                                            class="form-control form-control-file" name="image">
+                                </div>
+                                <hr>
+                            <!--본인확인 질문 입력-->
+                                <div class="form-group">
+                                    본인확인 질문
+                                        <select class="form-control" name="question_key">
+                                            <option value="" disabled selected hidden> 본인확인 질문을 선택해주세요. </option>
+                                            <option value="1"> 가장 감명깊게 읽은 책의 이름은? </option>
+                                            <option value="2"> 나의 보물 1호는? </option>
+                                            <option value="3"> 내가 졸업한 초등학교는? </option>
+                                            <option value="4"> 내가 태어난 곳은? </option>
+                                            <option value="5"> 애완동물의 이름은? </option>
+                                            <option value="6"> 부모님의 결혼기념일은? </option>
+                                        </select>
+                                           
+                                </div>
+                            <!--본인확인 답 입력-->
+                                <div class="form-group">
+                                        본인확인 답 <input type="text" class="form-control form-control-user"
+                                            name="question_value" placeholder="Enter the Answer...">
+                                </div>
+                                <input type="submit" value="Register Account" class="btn btn-primary btn-user btn-block" />
+                                <hr>
+                            </form>
+                           
+                            <div class="text-center">
+                                <a class="small underline" href="{%url 'account:finder' %}">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small underline" href="{%url 'account:login' %}">Already have an account? Login!</a>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>

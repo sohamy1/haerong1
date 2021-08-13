@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+    <h2 align="center">내 계정 정보</h2>
+    {% if user.is_staff is True %}
+        관리자 계정입니다 <br>
+    {% endif %}
+    <h4 style="display: inline-block;">{{ user.nickname }}</h4>
+    {% if user.rank == "브론즈" %}
+            <img src="{% static 'img/home/1.gif' %}" width="25px" height="25px">
+        {% endif %}
+        {% if user.rank == "실버" %}
+            <img src="{% static 'img/home/2.gif' %}" width="25px" height="25px">
+        {% endif %}
+        {% if user.rank == "골드" %}
+            <img src="{% static 'img/home/3.gif' %}" width="25px" height="25px">
+    {% endif %} <br>
+    <img src="/media/{{ user.image }}" width="120px" height="120px"> 
+    {% if user.image is False %}
+        <img src="{% static 'img/home/profile.gif' %}" width="120px" height="120px">
+    {% endif %}
+    <br>
+
+    점수 : {{ user.score }}xp |
+    랭크 : {{ user.rank }} 
+    
+        
+    <br>
+    <br>
+
+        <a href="{%url 'account:account_edit' %}" class="d-none d-sm-inline-block btn btn-primary">정보 수정</a>
+        <a href="{%url 'account:account_delete' %}" class="d-none d-sm-inline-block btn btn-primary">계정 삭제</a>
+    <hr>        <hr>
+    <h5>{{ user.nickname }}님이 쓰신 글 입니다.</h5>
+    {% for post in posts %}
+        <a href="{%url 'board:detail' post.id %}">{{ post.title }}</a> <br>
+    {% endfor %}
+
+    <hr color="#FF8E06">
+    <h5>{{ user.nickname }}님이 쓰신 댓글 입니다.</h5>
+    {% for comment in comments %}
+        <a href="{%url 'board:detail' comment.linked_post %}">{{ comment.body }}</a> <br>
+    {% endfor %}
+
+    </div>
+{% endblock %}
